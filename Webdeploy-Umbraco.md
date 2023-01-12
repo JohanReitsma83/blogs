@@ -61,6 +61,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 ```
 
 the following rules are important:
+This is required for setting skip rules, here you specify a unique name to use as a target.
 ```
 <AfterAddIisSettingAndFileContentsToSourceManifest>AddCustomSkipRules</AfterAddIisSettingAndFileContentsToSourceManifest> <!-- Required to add skip rules-->
 ```
+
+
+The following line is set to not override our permissions of the folders
+```
+<IncludeSetACLProviderOnDestination>False</IncludeSetACLProviderOnDestination>
+```
+
+App_Data can be excluded from cleaning, with the following rule
+```
+<ExcludeApp_Data>true</ExcludeApp_Data> <!--App Data can be excluded from deployment -->
+```
+
+We used to have this on True, but we want to have a clean enviroment because if we upgrade stuff or rename assemblies then you don't need to fix this on a server. So set it to False to keep it clean
+<SkipExtraFilesOnServer>false</SkipExtraFilesOnServer>
