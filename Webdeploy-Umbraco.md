@@ -68,15 +68,13 @@ This is required for setting skip rules, here you specify a unique name to use a
 
 
 The following line is set to not override our permissions of the folders
-```
+
 ```
 <IncludeSetACLProviderOnDestination>False</IncludeSetACLProviderOnDestination>
 ```
 
 App_Data can be excluded from cleaning, with the following rule
-```  <PropertyGroup> <!-- This looks like it is needed for the Custom Skip Rules -->
-    <UseMsDeployExe>true</UseMsDeployExe>
-  </PropertyGroup>
+```
 <ExcludeApp_Data>true</ExcludeApp_Data> <!--App Data can be excluded from deployment -->
 ```
 
