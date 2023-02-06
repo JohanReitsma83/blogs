@@ -1,4 +1,4 @@
-# Cleanup your Umbraco Application with no FTP Access!
+# Clean up your Umbraco Application with no FTP Access!
 
 ## Who are we? 
 At my company, a web agency the .NET developers build custom websites based on Umbraco. All of our sites have a common configuration and libraries but are customized for every client of ours. We started using Umbraco 7 and now we support V10. The reason not to use V11 is mainly that it's not Lont Time Supported version, but that's a completely different story for a later blog.
@@ -20,7 +20,7 @@ With a publish profile we can deploy it using visual studio or by command line. 
 And now the issue with our setup comes to play. We can keep all the files on disk, but what if a DLL is not used, it remains in your Bin folder and is still used in the startup of your project or can have a conflict. Or assets that are removed from source control still are available on disk on the server. A mess occurs :( But if we clean up everything automatically that's not in version control all our user-generated content will be removed. The Media for Umbraco for example, or form uploads.
 In the past, we kept all the files on disk and could manually remove files using FTP. But this gives a developer the wrong access :(
 
-# How we changed to remove all files but with an exclusion!
+## How we changed to remove all files but with an exclusion!
 We could make the Media folder and App_Data folder a virtual folder on another part of the disk on the IIS server. But this means moving files in production environments and configuration changes for the clients and possible issues with the environment.
 
 So if you're setting up the first time for Umbraco keep in mind how to set up your IIS instance. But the other solution is to make some changes in your deployment profile. Here you can specify to keep all files on the server, but we want only files from our GIT repository and one exclusion of the Media folder. You can do that by adding skip rules for deployment.
