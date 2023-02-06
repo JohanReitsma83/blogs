@@ -1,11 +1,7 @@
 # Clean up your Umbraco Application with no FTP Access!
 
-## Who are we? 
-At my company, a web agency the .NET developers build custom websites based on Umbraco. All of our sites have a common configuration and libraries but are customized for every client of ours. We started using Umbraco 7 and now we support V10. The reason not to use V11 is mainly that it's not Lont Time Supported version, but that's a completely different story for a later blog.
-
 ## Why we don't want FTP access!
-Our company's biggest issue with our Umbraco environments is FTP access for our Support employees and our Developers.
-
+Our company, a web agency that builds custom websites in Umbraco, the biggest issue is FTP access for our Support employees and our Developers to our custom build websites in Umbraco.
 Mainly the issue is because some developers do changes using FTP on production without committing it back to version control, or without Pull Request validation and correct testing. And then with our official release mechanism using Azure Pipelines, the changes are gone or will break the application if a new release will be executed. The customer is angry and a developer needs to find out what happened. But no history :( or need to revert the wrong change that isn't tested. So this is why we want to remove access to our Website of the Umbraco Application by FTP.
 
 If it's in version control it's in history and there is one truth!
