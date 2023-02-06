@@ -26,7 +26,7 @@ We could make the Media folder and App_Data folder a virtual folder on another p
 So if you're setting up the first time for Umbraco keep in mind how to set up your IIS instance. But the other solution is to make some changes in your deployment profile. Here you can specify to keep all files on the server, but we want only files from our GIT repository and one exclusion of the Media folder. You can do that by adding skip rules for deployment.
 
 Its called MsDeploySkipRules, for Microsoft reference to the Documentation you can read it here: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles?view=aspnetcore-7.0
-For a Umbraco we use the following Deployment Script that seems to be working. I'm gonna explain what you need to do in the script for excluding some folder for removal.
+For Umbraco we use the following Deployment Script that seems to be working. I'm gonna explain what you need to do in the script for excluding some folder for removal.
 
 ## the script
 ```xml
