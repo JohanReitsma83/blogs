@@ -1,13 +1,37 @@
-# webdeploy-umbraco
+# Cleanup your Umbraco Application with no FTP Access!
 
-For deploying Umbraco we use the web deploy functionality of Microsoft. Because we use it mainly for Umbraco V7 and V8 we can't remove all the files in the root directory. We are stuck at FTP access to remove old files like assets and assemblies that aren't needed anymore. The solution could be to make the Media folder and App_Data folder a virtual folder on another part of the disk on the server. But this means moving files in production environments and configuration changes for the clients and possible issues with the environment. 
+## Who are we? 
+At my company, a web agency the .NET developers build custom websites based on Umbraco. All of our sites have a common configuration and libraries but are customized for every client of us. We started using Umbraco 7 and now we support V10. Reason not to use V11 is mainly because it's not Lont Time Supported version, but thats a completly different story for a later blog.
+
+## Why we don't want FTP access!
+Our company's bigest issue with our Umbraco enviroments is FTP access for our Support employees and our Developers.  
+
+Mainly the issue is because of some developers do changes using FTP on production without committing it back to version control, or without Pull Request validation and correct testing. And then with our official release mechanism using Azure Pipelines the changes are gone or will break the application if a new production release will be executed. Customer angry and an developer need to find out what happend. But no history  :( or need to revert the wrong change that isn't tested. So this is why we want to remove access to our Website of the Umbraco Application by FTP. 
+
+If it's in version control its in history and there is one truth! 
+
+## But how do you do this? 
+There are a couple of solutions, for example custom scripts, or creating a new instance (version folder online) for each deployment, but in our case we want a single instance online so the server keeps clean. And thats why we use a tool from Microsoft called MS Web Deploy and a publish profile you can configure in visual studio. I'm not gone explain how to install it, but you can read more about this here: https://learn.microsoft.com/en-us/aspnet/web-forms/overview/deployment/visual-studio-web-deployment/deploying-to-iis
+
+With a publish profile we can deploy it using visual studio or by command line. We use command line in our azure pipeline to publish to a specific profile. 
+This is great, but an profile has 2 options for files and folders:
+.- Keep files on disk that doesn't exist in source control
+- Remove all files that are on disk but not in source control. 
+
+And now the issue with our setup comes to play. We can keep al the files on disk, but what if a dll is not used, it remains in your Bin folder and is still used in startup of your project or can have a conflict. Or assets that are removed from source control still are available on disk on the server. A mess occures :(
+But if we cleanup everything automaticly thats not in version control all our user generated content will be removed. The Media for Umbraco for example, or form uploads.
+
+In the past we kept all the files on disk and could manually remove files using FTP. But this gives a developer the wrong access :(
+
+# How we changed to remove all files but with an exclusion!
+We could make the Media folder and App_Data folder a virtual folder on another part of the disk on the IIS server. But this means moving files in production environments and configuration changes for the clients and possible issues with the environment. 
 
 So if you're setting up the first time for Umbraco keep in mind how to set up your IIS instance. But the other solution is to make some changes in your deployment profile. Here you can specify to keep all files on the server, but we want only files from our GIT repository and one exclusion of the Media folder. You can do that by adding skip rules for deployment.
 
 Its called MsDeploySkipRules, for Microsoft reference to the Documentation you can read it here:
 https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles?view=aspnetcore-7.0
 
-For a Umbraco we use the following Deployment Script that seems to be working.
+For a Umbraco we use the following Deployment Script that seems to be working. I'm gonna explain the complete script further in this article.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <!--
