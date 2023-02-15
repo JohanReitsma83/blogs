@@ -10,3 +10,5 @@ I constantly learn more about Umbraco by following MVPs and reading   blogs on M
 You can hook up with me on Twitter, LinkedIn or Instagram
 
 You can hook up to me on [Twitter](https://twitter.com/JohanReitsma), [LinkedIn](https://www.linkedin.com/in/johan-reitsma-64b9ba31) or [Instagram](https://www.instagram.com/johanreitsma83/)
+
+![](https://github.com/JohanReitsma83/blogs/blob/main/profile.jpg)
