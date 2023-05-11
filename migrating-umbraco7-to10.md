@@ -17,5 +17,39 @@ From the new version you can upsell some new features like Multilingual support 
 
 #How to start?
 
-## Get everything locally working on your machine!
-So first we want everything locally working on your machine. I hope you have the project in a GIT repository
+# V7 Steps!
+
+## 1.Get everything locally working on your machine!
+So first we want everything locally working on your machine. I hope you have the project in a GIT repository bevcause it will give you an overview of viewing your changes and see if you are forgetting something in the future.
+
+So you have the source checked out? Nice. Now get a backup of the production database.
+
+### why production database? Why not development, test or acceptance database?
+In the migrations of a lot of projects I have learned that migrating Test or any other Database is missing user generated content that can be a problem if you don't find it out early in your migration steps!.
+
+So you've got a backup of production? Now use SQL Developer edition or a test database server to host that database. 
+
+## 2.Ajust the connection string
+Make sure the connection string is changed, and keep this in a notepad our something, we are gonna need it multiple times!
+<add name="umbracoDbDSN" connectionString="server=servername;database=migration-customer;user id=username;password='******'" providerName="System.Data.SqlClient" />
+
+## 3.Download the media folder
+Download the media folder from production back into your local media folder. Why? This will help to test if everything is working locally before the upgrade! And you need this in your V10 to compare it with your production running website
+
+## 4.Download the forms json files from App_Data
+We also need to download the forms files, this is needed because the Json files needs to be migrated into the database. That is done later on in the Umbraco V8 version and can't be done in V9 or up versions!
+
+## 5.Run the site locally
+Don't fotget to change the domain name on your root node to the localhost version, then you should see a complete working version of your website locally!.
+
+# V8 Step!
+so now i'm running umbraco V8 in an IIS instance locally (love that way) but you can do this also on a test server. I'm going to go with local iis in this blog.
+
+## 1. Create a site in IIS
+Bind your website to the V8 and add a binding like upgrade.localhost. 
+
+## 2. changes to the web.config
+Change the connection string in the web.config to the working V7 version. Note, you also need to fill in 
+<add key="Umbraco.Core.ConfigurationStatus" value="7.15.7" /> to the old v7 version! Keep in mind, this needs to be the correct version of V7.
+
+##.
